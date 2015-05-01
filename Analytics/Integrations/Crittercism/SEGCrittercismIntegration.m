@@ -3,6 +3,7 @@
 
 #import "SEGCrittercismIntegration.h"
 #import <Crittercism.h>
+#import <CrittercismConfig.h>
 #import "SEGAnalyticsUtils.h"
 #import "SEGAnalytics.h"
 
@@ -25,8 +26,11 @@
 
 - (void)start
 {
+    CrittercismConfig* config = [CrittercismConfig defaultConfig];
+    BOOL monitorWebView = [self.settings objectForKey:@"monitorWebView"];
+    [config setMonitorUIWebView:monitorWebView];
     NSString *appId = [self.settings objectForKey:@"appId"];
-    [Crittercism enableWithAppID:appId];
+    [Crittercism enableWithAppID:appId andConfig:config];
     SEGLog(@"CrittercismIntegration initialized.");
 }
 
