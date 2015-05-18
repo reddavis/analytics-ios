@@ -10,12 +10,13 @@
 #import "SEGAnalytics.h"
 #import "SEGAnalyticsUtils.h"
 #import <Optimizely-iOS-SDK/Optimizely.h>
+#import <Optimizely-iOS-SDK/OptimizelyExperimentData.h>
 
 NSString *SEGMixpanelClass = @"Mixpanel";
 
 @interface SEGOptimizelyIntegration ()
 
-@property (nonatomic, assign) BOOL needsToActivateMixpanel;
+@property(nonatomic, assign) BOOL needsToActivateMixpanel;
 
 @end
 
@@ -31,13 +32,25 @@ NSString *SEGMixpanelClass = @"Mixpanel";
     self.valid = YES;
     self.initialized = NO;
 
-    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(integrationDidStart:) name:SEGAnalyticsIntegrationDidStart object:nil];
+    [[NSNotificationCenter defaultCenter]
+        addObserver:self
+           selector:@selector(integrationDidStart:)
+               name:SEGAnalyticsIntegrationDidStart
+             object:nil];
   }
   return self;
 }
 
 - (void)start {
   [self activateMixpanel];
+
+  if ([(NSNumber *)[self.settings objectForKey:@"listen"] boolValue]) {
+    [[NSNotificationCenter defaultCenter]
+        addObserver:self
+           selector:@selector(experimentDidGetViewed:)
+               name:OptimizelyExperimentVisitedNotification
+             object:nil];
+  }
 
   [super start];
 }
@@ -46,7 +59,9 @@ NSString *SEGMixpanelClass = @"Mixpanel";
   self.valid = YES;
 }
 
-- (void)track:(NSString *)event properties:(NSDictionary *)properties options:(NSDictionary *)options {
+- (void)track:(NSString *)event
+    properties:(NSDictionary *)properties
+       options:(NSDictionary *)options {
   [Optimizely trackEvent:event];
 }
 
@@ -59,7 +74,7 @@ NSString *SEGMixpanelClass = @"Mixpanel";
 - (void)activateMixpanel {
   if (NSClassFromString(SEGMixpanelClass) && self.needsToActivateMixpanel) {
     SEGLog(@"Activating Optimizely's Mixpanel integration.");
-    
+
     [Optimizely activateMixpanelIntegration];
     self.needsToActivateMixpanel = NO;
   }
@@ -73,6 +88,20 @@ NSString *SEGMixpanelClass = @"Mixpanel";
 
     if (self.initialized) {
       [self activateMixpanel];
+    }
+  }
+}
+
+- (void)experimentDidGetViewed:(NSNotification *)notification {
+  NSString *experimentViewed = notification.name;
+  NSArray *visitedExperiments = [Optimizely sharedInstance].visitedExperiments;
+  for (OptimizelyExperimentData *data in visitedExperiments) {
+    if ([data.experimentName isEqualToString:experimentViewed]) {
+      [[SEGAnalytics sharedAnalytics] track:@"Experiment Viewed"
+                                 properties:@{
+                                   @"experimentName" : data.experimentName,
+                                   @"variationName" : data.variationName
+                                 }];
     }
   }
 }
