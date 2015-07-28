@@ -15,13 +15,6 @@
       }]
     },
     {
-      "name": "Bugsnag",
-      "dependencies": [{
-        "name": "Bugsnag",
-        "version": "4.0.3"
-      }]
-    },
-    {
       "name": "Countly",
       "dependencies": [{
         "name": "Countly",
