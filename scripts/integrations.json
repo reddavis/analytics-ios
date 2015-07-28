@@ -1,48 +1,6 @@
 {
   "integrations": [
     {
-      "name": "Amplitude",
-      "dependencies": [{
-        "name": "Amplitude-iOS",
-        "version": "2.4.0"
-      }]
-    },
-    {
-      "name": "AppsFlyer",
-      "dependencies": [{
-        "name": "AppsFlyer-SDK",
-        "version": "2.5.3.10"
-      }]
-    },
-    {
-      "name": "Bugsnag",
-      "dependencies": [{
-        "name": "Bugsnag",
-        "version": "4.0.3"
-      }]
-    },
-    {
-      "name": "Countly",
-      "dependencies": [{
-        "name": "Countly",
-        "version": "1.0.0"
-      }]
-    },
-    {
-      "name": "Crittercism",
-      "dependencies": [{
-        "name": "CrittercismSDK",
-        "version": "5.0.5"
-      }]
-    },
-    {
-      "name": "Flurry",
-      "dependencies": [{
-        "name": "FlurrySDK",
-        "version": "4.4.0"
-      }]
-    },
-    {
       "name": "GoogleAnalytics",
       "dependencies": [{
         "name": "GoogleAnalytics-iOS-SDK",
@@ -53,13 +11,6 @@
       }]
     },
     {
-      "name": "Localytics",
-      "dependencies": [{
-        "name": "Localytics",
-        "version": "3.1.0"
-      }]
-    },
-    {
       "name": "Mixpanel",
       "dependencies": [{
         "name": "Mixpanel",
@@ -67,29 +18,8 @@
       }]
     },
     {
-      "name": "Quantcast",
-      "dependencies": [{
-        "name": "Quantcast-Measure",
-        "version": "1.4.6"
-      }]
-    },
-    {
       "name": "Segmentio",
       "dependencies": []
-    },
-    {
-      "name": "Taplytics",
-      "dependencies": [{
-        "name": "Taplytics",
-        "version": "2.1.86"
-      }]
-    },
-    {
-      "name": "Tapstream",
-      "dependencies": [{
-        "name": "Tapstream",
-        "version": "2.8.3"
-      }]
     }
   ]
 }
