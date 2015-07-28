@@ -1,16 +1,6 @@
 {
   "integrations": [
     {
-      "name": "GoogleAnalytics",
-      "dependencies": [{
-        "name": "GoogleAnalytics-iOS-SDK",
-        "version": "3.10"
-      }, {
-        "name": "GoogleAnalytics-iOS-SDK/IDFA",
-        "version": "3.10"
-      }]
-    },
-    {
       "name": "Mixpanel",
       "dependencies": [{
         "name": "Mixpanel",
