@@ -60,13 +60,6 @@
       }]
     },
     {
-      "name": "Optimizely",
-      "dependencies": [{
-        "name": "Optimizely-iOS-SDK",
-        "version": "1.0.75"
-      }]
-    },
-    {
       "name": "Quantcast",
       "dependencies": [{
         "name": "Quantcast-Measure",
